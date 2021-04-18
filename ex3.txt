@@ -1,0 +1,22 @@
+## Leitura do conjunto de dados. Também pode-se usar read.csv() quando os dados estiverem em arquivos .csv 
+dados <- read.table("escreva a localização do arquivo...", header=TRUE)
+
+## Preparação de dados 
+dados.vetor <- c(dados$trat1, dados$trat2, dados$trat3, dados$trat4) %pode ser com qualquer quantidade de tratamentos.
+
+N <- gl(trat, repeticoes) %escreva o número de tratamentos e o tratamento com maior número de repetições.
+dados.vert <- data.frame(N, dados.vetor)
+fator <- factor(Loc) % fatores são variáveis tratadas como variáveis categóricas no R.
+
+## Cáculo da tabela ANOVA
+pre_anova <- aov(dados.vetor~fator)
+ANOVA <- summary(pre_anova)
+
+## Fazendo teste de Tukey, teremos:
+TukeyHSD(pre_anova, ordered=TRUE)
+plot(TukeyHSD(bruto.aov, ordered=TRUE))
+
+library(ScottKnott)
+sk5 <- SK(x=dados, y=dados.vert$dados.vetor, model="y~fator", which="fator",sig.level=0.05)
+summary(sk5)
+plot(sk5)
